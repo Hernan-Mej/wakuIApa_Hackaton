@@ -205,7 +205,10 @@ async def _call_lmstudio(messages: list[dict]) -> str:
         "stream": False,
         "chat_template_kwargs": {"enable_thinking": False},
     }
-    async with httpx.AsyncClient(timeout=settings.lmstudio_timeout) as client:
+    # `ngrok-skip-browser-warning` bypasses the ngrok-free interstitial HTML
+    # page (ERR_NGROK_6024) that breaks the JSON response.
+    headers = {"ngrok-skip-browser-warning": "true"}
+    async with httpx.AsyncClient(timeout=settings.lmstudio_timeout, headers=headers) as client:
         res = await client.post(f"{settings.lmstudio_url}/chat/completions", json=payload)
         res.raise_for_status()
         data = res.json()
