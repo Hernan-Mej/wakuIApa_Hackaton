@@ -26,4 +26,6 @@ COPY . .
 # Railway / Fly.io / Render inject $PORT — fallback to 8000 for local docker run
 EXPOSE 8000
 
-CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1
+# Exec form + explicit sh -c so $PORT (set by Railway / Render / Fly.io) expands
+# and PID 1 forwards SIGTERM correctly on graceful shutdown.
+CMD ["/bin/sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1"]
