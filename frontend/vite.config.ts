@@ -8,4 +8,21 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] })
   ],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      },
+    },
+    // Bare hostnames (sin https://). Un prefijo `.` permite cualquier
+    // subdominio bajo ese dominio (útil con ngrok free, cuyo subdominio
+    // cambia entre sesiones).
+    allowedHosts: [
+      '.ngrok-free.dev',
+      '.ngrok-free.app',
+      '.ngrok.app',
+      '.ngrok.io',
+    ],
+  },
 })

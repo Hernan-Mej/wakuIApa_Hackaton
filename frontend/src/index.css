@@ -1,111 +1,338 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+/* ─── Guajira theme tokens ──────────────────────────────────────────────────
+ * Dark = Guajira de noche (mar profundo + sol dorado)
+ * Light = Guajira de día (cielo/mar claro + arena + acentos sol)
+ */
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --c-bg: #050a18;
+  --c-bg-soft: #0a1020;
+  --c-surface: rgba(255, 255, 255, 0.04);
+  --c-surface-strong: rgba(255, 255, 255, 0.06);
+  --c-surface-input: rgba(0, 0, 0, 0.3);
+  --c-border: rgba(255, 255, 255, 0.08);
+  --c-border-strong: rgba(255, 255, 255, 0.15);
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  --c-text: rgba(255, 255, 255, 0.92);
+  --c-text-muted: rgba(255, 255, 255, 0.55);
+  --c-text-faint: rgba(255, 255, 255, 0.35);
+  --c-text-on-accent: #000;
+
+  /* sol (gold) primary */
+  --c-accent: #f59e0b;
+  --c-accent-strong: #fbbf24;
+  --c-accent-soft: rgba(245, 158, 11, 0.15);
+  --c-accent-border: rgba(245, 158, 11, 0.4);
+
+  /* mar (cyan) secondary */
+  --c-info: #06b6d4;
+  --c-info-soft: rgba(6, 182, 212, 0.15);
+  --c-info-border: rgba(6, 182, 212, 0.4);
+
+  --c-danger: #ef4444;
+  --c-danger-soft: rgba(239, 68, 68, 0.15);
+  --c-danger-border: rgba(239, 68, 68, 0.4);
+  --c-success: #22c55e;
+
+  --c-overlay: rgba(0, 0, 0, 0.5);
+  --c-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+[data-theme="light"] {
+  color-scheme: light;
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+  --c-bg: #eaf3fb;             /* cielo / mar claro */
+  --c-bg-soft: #f5fafe;
+  --c-surface: #ffffff;
+  --c-surface-strong: #f3f8fc;
+  --c-surface-input: #ffffff;
+  --c-border: rgba(15, 50, 90, 0.1);
+  --c-border-strong: rgba(15, 50, 90, 0.2);
+
+  --c-text: #0c2949;            /* navy profundo */
+  --c-text-muted: #4d6585;
+  --c-text-faint: #92a4bb;
+  --c-text-on-accent: #ffffff;
+
+  /* azul mar primary */
+  --c-accent: #0369a1;
+  --c-accent-strong: #075985;
+  --c-accent-soft: rgba(3, 105, 161, 0.1);
+  --c-accent-border: rgba(3, 105, 161, 0.35);
+
+  /* sol (gold) secondary — para destacar predicción / acentos cálidos */
+  --c-info: #d97706;
+  --c-info-soft: rgba(217, 119, 6, 0.12);
+  --c-info-border: rgba(217, 119, 6, 0.4);
+
+  --c-danger: #dc2626;
+  --c-danger-soft: rgba(220, 38, 38, 0.1);
+  --c-danger-border: rgba(220, 38, 38, 0.35);
+  --c-success: #16a34a;
+
+  --c-overlay: rgba(15, 40, 80, 0.4);
+  --c-shadow: 0 4px 20px rgba(15, 40, 80, 0.08);
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+* {
   box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+  margin: 0;
+  width: 100%;
+  min-height: 100svh;
+}
+
 body {
-  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font: 14px/1.5 'Geist', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-feature-settings: 'cv11', 'ss01', 'ss03'; /* Geist stylistic alternates */
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+code, kbd, samp, pre {
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
+/* Native form controls match the theme */
+select option {
+  background: var(--c-surface);
+  color: var(--c-text);
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--c-border-strong);
   border-radius: 4px;
-  color: var(--text-h);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--c-text-faint);
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Subtle ring pulse for the floating chat button */
+@keyframes fab-ring {
+  0% { box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28), 0 0 0 0 var(--c-accent-soft); }
+  70% { box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28), 0 0 0 14px transparent; }
+  100% { box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28), 0 0 0 0 transparent; }
+}
+.fab {
+  animation: fab-ring 2.6s ease-out infinite;
+}
+.fab:hover {
+  transform: scale(1.06) !important;
+  filter: brightness(1.08);
+}
+.fab:active {
+  transform: scale(0.97) !important;
+}
+.fab:focus-visible {
+  outline: 3px solid var(--c-accent-border);
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fab { animation: none; }
+}
+
+/* ─── Responsive layout utilities ───────────────────────────────────────────
+ * Breakpoints: sm=640, md=900, lg=1200. Mobile-first.
+ */
+
+/* App-wide page container with responsive padding */
+.r-page {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 14px;
+}
+@media (min-width: 640px) {
+  .r-page { padding: 20px; }
+}
+@media (min-width: 1200px) {
+  .r-page { padding: 24px 28px; }
+}
+
+/* Header: logo on the left, actions on the right, wraps cleanly */
+.r-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.r-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+@media (max-width: 640px) {
+  .r-header__email { display: none; }
+}
+
+/* Hero: 1 column on mobile, 2 cols (content + 240px actions sidebar) on md+ */
+.r-hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+@media (min-width: 900px) {
+  .r-hero { grid-template-columns: 1fr 260px; gap: 20px; margin-bottom: 20px; }
+}
+
+/* Action buttons stack inside hero — 2 cols on mobile (side by side), 1 col on desktop */
+.r-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (min-width: 900px) {
+  .r-actions { grid-template-columns: 1fr; gap: 12px; }
+}
+
+/* KPI strip: auto-fit grid that wraps cleanly */
+.r-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+@media (min-width: 640px) {
+  .r-kpi-grid { gap: 12px; margin-bottom: 20px; }
+}
+
+/* Two equal columns that stack on mobile */
+.r-two-col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+@media (min-width: 900px) {
+  .r-two-col { grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+}
+
+/* Main + side column (2fr / 1fr) that stacks on mobile */
+.r-main-side {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+@media (min-width: 900px) {
+  .r-main-side { grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 20px; }
+}
+
+/* Auto-fit grid for sector details / info boxes */
+.r-auto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+  gap: 10px;
+}
+@media (min-width: 640px) {
+  .r-auto-grid { gap: 12px; }
+}
+
+/* Touch-friendly tap targets */
+button,
+[role="button"],
+.r-tap {
+  min-height: 36px;
+}
+@media (max-width: 640px) {
+  button,
+  [role="button"],
+  .r-tap {
+    min-height: 44px; /* WCAG recommended touch target */
+  }
+}
+
+/* Chat panel: 460px sidebar on desktop, full-screen on mobile */
+.r-chat-panel {
+  width: 460px;
+  max-width: 100vw;
+}
+@media (max-width: 640px) {
+  .r-chat-panel { width: 100vw; }
+}
+
+/* Fluid typography helpers */
+.r-h1 {
+  font-size: clamp(22px, 5vw, 32px);
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+.r-h2 {
+  font-size: clamp(18px, 3.6vw, 24px);
+  line-height: 1.2;
+}
+.r-kpi-value {
+  font-size: clamp(18px, 4vw, 22px);
+}
+
+/* Auth-page layout (login/signup centered card, theme toggle floats) */
+.r-auth-page {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  position: relative;
+}
+@media (min-width: 640px) {
+  .r-auth-page { padding: 32px 20px; }
+}
+.r-auth-toggle {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+@media (min-width: 640px) {
+  .r-auth-toggle { top: 20px; right: 20px; }
+}
+
+/* Card with mobile-aware padding */
+.r-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: var(--c-shadow);
+}
+@media (min-width: 640px) {
+  .r-card { padding: 20px; }
+}
+
+/* Prevent any horizontal overflow surprises */
+html, body { overflow-x: hidden; }
