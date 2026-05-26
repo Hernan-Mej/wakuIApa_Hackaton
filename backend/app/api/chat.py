@@ -205,11 +205,15 @@ async def _call_lmstudio(messages: list[dict]) -> str:
         "stream": False,
         "chat_template_kwargs": {"enable_thinking": False},
     }
+    # Normalize URL: auto-prepend https:// if missing, strip trailing slash
+    base_url = settings.lmstudio_url.strip().rstrip("/")
+    if not base_url.startswith(("http://", "https://")):
+        base_url = "https://" + base_url
     # `ngrok-skip-browser-warning` bypasses the ngrok-free interstitial HTML
     # page (ERR_NGROK_6024) that breaks the JSON response.
     headers = {"ngrok-skip-browser-warning": "true"}
     async with httpx.AsyncClient(timeout=settings.lmstudio_timeout, headers=headers) as client:
-        res = await client.post(f"{settings.lmstudio_url}/chat/completions", json=payload)
+        res = await client.post(f"{base_url}/chat/completions", json=payload)
         res.raise_for_status()
         data = res.json()
     msg = data["choices"][0]["message"]
